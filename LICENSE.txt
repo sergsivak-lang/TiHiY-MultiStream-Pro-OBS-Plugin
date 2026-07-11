@@ -1,0 +1,3 @@
+TiHiY MultiStream Pro Native OBS Plugin
+
+Suggested license: GPL-2.0-or-later, because OBS Studio and the official OBS Plugin Template are GPL-compatible projects.
