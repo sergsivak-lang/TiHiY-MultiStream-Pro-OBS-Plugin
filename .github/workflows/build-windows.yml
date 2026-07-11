@@ -1,0 +1,81 @@
+name: Build TiHiY MultiStream Pro OBS Plugin
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-windows:
+    name: Windows build test
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Show repository files
+        shell: pwsh
+        run: |
+          Write-Host "Repository root:"
+          Get-ChildItem
+          Write-Host "Recursive file list:"
+          Get-ChildItem -Recurse | Select-Object FullName
+
+      - name: Validate required project files
+        shell: pwsh
+        run: |
+          $required = @(
+            "CMakeLists.txt",
+            "src",
+            "data",
+            "installer"
+          )
+
+          foreach ($item in $required) {
+            if (!(Test-Path $item)) {
+              throw "Missing required file or folder: $item"
+            }
+          }
+
+          Write-Host "Basic project structure OK."
+
+      - name: Configure CMake
+        shell: pwsh
+        run: |
+          cmake -S . -B build -G "Visual Studio 17 2022" -A x64
+
+      - name: Build Release
+        shell: pwsh
+        run: |
+          cmake --build build --config Release
+
+      - name: Collect build artifacts
+        if: always()
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force -Path artifact
+
+          if (Test-Path "build") {
+            Copy-Item -Recurse "build" "artifact/build"
+          }
+
+          if (Test-Path "data") {
+            Copy-Item -Recurse "data" "artifact/data"
+          }
+
+          if (Test-Path "installer") {
+            Copy-Item -Recurse "installer" "artifact/installer"
+          }
+
+          Copy-Item "CMakeLists.txt" "artifact/" -ErrorAction SilentlyContinue
+          Copy-Item "README_UA.md" "artifact/" -ErrorAction SilentlyContinue
+          Copy-Item "LICENSE.txt" "artifact/" -ErrorAction SilentlyContinue
+
+      - name: Upload artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: TiHiY-MultiStream-Pro-Windows-Build
+          path: artifact
