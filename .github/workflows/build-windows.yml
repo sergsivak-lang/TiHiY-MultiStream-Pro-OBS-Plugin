@@ -1,3 +1,4 @@
+```yaml id="av03p0"
 name: Build TiHiY MultiStream Pro OBS Plugin
 
 on:
@@ -9,11 +10,19 @@ on:
 jobs:
   build-windows:
     name: Windows build test
-    runs-on: windows-latest
+    runs-on: windows-2022
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v2
+
+      - name: Setup MSVC developer command prompt
+        uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x64
 
       - name: Show repository files
         shell: pwsh
@@ -22,6 +31,14 @@ jobs:
           Get-ChildItem
           Write-Host "Recursive file list:"
           Get-ChildItem -Recurse | Select-Object FullName
+
+      - name: Check Visual Studio / MSVC
+        shell: pwsh
+        run: |
+          Write-Host "Checking Visual Studio..."
+          & "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe" -latest -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath
+          Write-Host "Checking compiler..."
+          cl
 
       - name: Validate required project files
         shell: pwsh
@@ -44,12 +61,12 @@ jobs:
       - name: Configure CMake
         shell: pwsh
         run: |
-          cmake -S . -B build -G "Visual Studio 17 2022" -A x64
+          cmake -S . -B build -G "NMake Makefiles" -DCMAKE_BUILD_TYPE=Release
 
       - name: Build Release
         shell: pwsh
         run: |
-          cmake --build build --config Release
+          cmake --build build
 
       - name: Collect build artifacts
         if: always()
