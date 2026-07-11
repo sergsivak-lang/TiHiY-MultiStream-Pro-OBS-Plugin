@@ -23,6 +23,14 @@ jobs:
         with:
           arch: x64
 
+      - name: Install Qt 6
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: '6.8.3'
+          host: 'windows'
+          target: 'desktop'
+          arch: 'win64_msvc2022_64'
+
       - name: Show repository files
         shell: pwsh
         run: |
@@ -31,13 +39,17 @@ jobs:
           Write-Host "Recursive file list:"
           Get-ChildItem -Recurse | Select-Object FullName
 
-      - name: Check Visual Studio / MSVC
+      - name: Check Visual Studio / MSVC / Qt
         shell: pwsh
         run: |
           Write-Host "Checking Visual Studio..."
           & "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe" -latest -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath
           Write-Host "Checking compiler..."
           cl
+          Write-Host "Checking Qt..."
+          Write-Host "Qt6_DIR=$env:Qt6_DIR"
+          Write-Host "QT_ROOT_DIR=$env:QT_ROOT_DIR"
+          qmake --version
 
       - name: Validate required project files
         shell: pwsh
@@ -60,12 +72,12 @@ jobs:
       - name: Configure CMake
         shell: pwsh
         run: |
-          cmake -S . -B build -G "NMake Makefiles" -DCMAKE_BUILD_TYPE=Release
+          cmake -S . -B build -G "NMake Makefiles" -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH="$env:Qt6_DIR;$env:QT_ROOT_DIR"
 
       - name: Build Release
         shell: pwsh
         run: |
-          cmake --build build
+          cmake --build build --config Release --verbose
 
       - name: Collect build artifacts
         if: always()
