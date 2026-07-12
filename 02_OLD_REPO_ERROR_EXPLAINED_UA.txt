@@ -1,0 +1,16 @@
+ЧОМУ СТАРИЙ РЕПО НЕ ЗІБРАВСЯ:
+
+1) Спочатку GitHub не знаходив Visual Studio.
+   Це виправлялось workflow, але це була лише перша проблема.
+
+2) Потім не знаходився Qt6.
+   Це теж можна було виправити, але це не головна проблема.
+
+3) Головна помилка:
+   Target "tihiy-multistream-pro" links to OBS::libobs, but target was not found.
+
+Це означає, що repo не був створений на базі OBS Plugin Template.
+Саме template створює правильні OBS targets: OBS::libobs / OBS::obs-frontend-api.
+
+Висновок:
+старий repo не ремонтуємо нескінченно. Створюємо новий через OBS Plugin Template і накладаємо цей overlay.

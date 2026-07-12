@@ -1,34 +1,47 @@
-cmake_minimum_required(VERSION 3.28)
+cmake_minimum_required(VERSION 3.28...3.30)
 
-project(tihiy-multistream-pro VERSION 1.0.0 LANGUAGES CXX)
+include("${CMAKE_CURRENT_SOURCE_DIR}/cmake/common/bootstrap.cmake" NO_POLICY_SCOPE)
 
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_AUTOMOC ON)
+project(${_name} VERSION ${_version})
 
-# This CMake file is intended to be used inside/alongside the official OBS Plugin Template.
-# For a production build, use OBS Plugin Template and add these source files to it.
+enable_language(CXX)
+
+option(ENABLE_FRONTEND_API "Use obs-frontend-api for UI functionality" ON)
+option(ENABLE_QT "Use Qt functionality" ON)
+
+include(compilerconfig)
+include(defaults)
+include(helpers)
+
+add_library(${CMAKE_PROJECT_NAME} MODULE)
+
+find_package(libobs REQUIRED)
+target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE OBS::libobs)
+
+find_package(obs-frontend-api REQUIRED)
+target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE OBS::obs-frontend-api)
 
 find_package(Qt6 REQUIRED COMPONENTS Core Widgets)
+target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE Qt6::Core Qt6::Widgets)
 
-add_library(tihiy-multistream-pro MODULE
+set_target_properties(
+  ${CMAKE_PROJECT_NAME}
+  PROPERTIES
+    AUTOMOC ON
+    AUTOUIC ON
+    AUTORCC ON
+    CXX_STANDARD 17
+    CXX_STANDARD_REQUIRED ON
+)
+
+target_sources(
+  ${CMAKE_PROJECT_NAME}
+  PRIVATE
     src/plugin-main.cpp
     src/tihiy-multistream-dock.cpp
     src/tihiy-multistream-dock.hpp
 )
 
-target_include_directories(tihiy-multistream-pro PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
+target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
 
-target_link_libraries(tihiy-multistream-pro PRIVATE Qt6::Core Qt6::Widgets OBS::libobs OBS::frontend-api)
-
-set_target_properties(tihiy-multistream-pro PROPERTIES
-    OUTPUT_NAME "tihiy-multistream-pro"
-    PREFIX ""
-)
-
-install(TARGETS tihiy-multistream-pro
-    RUNTIME DESTINATION "obs-plugins/64bit"
-    LIBRARY DESTINATION "obs-plugins/64bit"
-)
-
-install(DIRECTORY data/ DESTINATION "data/obs-plugins/tihiy-multistream-pro")
+set_target_properties_plugin(${CMAKE_PROJECT_NAME} PROPERTIES OUTPUT_NAME ${_name})

@@ -1,0 +1,3 @@
+Do not use this overlay in the old manually-created repository.
+Create a new repository using obsproject/obs-plugintemplate first.
+Then upload this overlay on top of that template repository.

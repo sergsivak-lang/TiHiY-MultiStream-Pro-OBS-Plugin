@@ -1,0 +1,14 @@
+ПЕРЕВІРКА ПЕРЕД UPLOAD:
+
+[ ] Я створив НОВИЙ repo через obsproject/obs-plugintemplate -> Use this template.
+[ ] Я НЕ використовую старий repo TiHiY-MultiStream-Pro-OBS-Plugin, який падав на OBS::libobs.
+[ ] У новому repo є службові папки шаблону:
+    - .github/actions
+    - .github/scripts
+    - build-aux
+    - cmake
+    - CMakePresets.json
+    - buildspec.json
+[ ] Я завантажую вміст цього overlay-пакета поверх template repo.
+[ ] Я НЕ створюю вручну .github/workflows/main.yml.
+[ ] Після upload переходжу в Actions і запускаю workflow template.
