@@ -3,11 +3,12 @@ chcp 65001 >nul
 setlocal EnableExtensions EnableDelayedExpansion
 
 echo ============================================================
-echo  TiHiY MultiStream Pro - Setup.exe builder
+echo  TiHiY MultiStream Pro v2.1 - Setup.exe builder
 echo ============================================================
 echo.
-echo Потрібно: Inno Setup 6 або 7.
-echo Скачай: https://jrsoftware.org/isinfo.php
+echo 1) Спочатку скачай Windows artifact з GitHub Actions.
+echo 2) Розпакуй artifact у цю папку або будь-яку підпапку.
+echo 3) Запусти цей файл.
 echo.
 
 set "ROOT=%~dp0.."
@@ -21,7 +22,7 @@ if exist "%ProgramFiles%\Inno Setup 6\ISCC.exe" set "ISCC=%ProgramFiles%\Inno Se
 
 if not defined ISCC (
   echo [ERROR] Не знайдено ISCC.exe від Inno Setup.
-  echo Встанови Inno Setup і запусти цей файл ще раз.
+  echo Встанови Inno Setup 7 і запусти цей файл ще раз.
   pause
   exit /b 1
 )
@@ -31,14 +32,17 @@ echo.
 
 set "DLL="
 for /f "delims=" %%F in ('dir /s /b "tihiy-multistream-pro.dll" 2^>nul') do (
-  set "DLL=%%F"
-  goto :foundDll
+  echo %%F | findstr /i "installer\\payload" >nul
+  if errorlevel 1 (
+    set "DLL=%%F"
+    goto :foundDll
+  )
 )
 :foundDll
 
 if not defined DLL (
   echo [ERROR] Не знайдено tihiy-multistream-pro.dll.
-  echo Розпакуй Windows artifact з GitHub Actions у цю папку або в підпапку.
+  echo Скачай Windows artifact з GitHub Actions і розпакуй його сюди.
   pause
   exit /b 1
 )
@@ -48,23 +52,22 @@ echo [OK] DLL: !DLL!
 set "PAYLOAD=%ROOT%\installer\payload"
 if exist "%PAYLOAD%" rmdir /s /q "%PAYLOAD%"
 mkdir "%PAYLOAD%\obs-plugins\64bit" >nul 2>nul
-mkdir "%PAYLOAD%\data\obs-plugins\tihiy-multistream-pro\locale" >nul 2>nul
+mkdir "%PAYLOAD%\data\obs-plugins\tihiy-multistream-pro" >nul 2>nul
 copy /y "!DLL!" "%PAYLOAD%\obs-plugins\64bit\tihiy-multistream-pro.dll" >nul
 
-set "DATA_SRC="
+set "DATA_FOUND="
 for /d /r %%D in (tihiy-multistream-pro) do (
   if exist "%%D\locale" (
-    set "DATA_SRC=%%D"
-    goto :foundData
+    echo [OK] Data from artifact: %%D
+    xcopy /e /i /y "%%D\*" "%PAYLOAD%\data\obs-plugins\tihiy-multistream-pro\" >nul
+    set "DATA_FOUND=1"
+    goto :dataDone
   )
 )
-:foundData
+:dataDone
 
-if defined DATA_SRC (
-  echo [OK] Data: !DATA_SRC!
-  xcopy /e /i /y "!DATA_SRC!\*" "%PAYLOAD%\data\obs-plugins\tihiy-multistream-pro\" >nul
-) else (
-  echo [WARN] Data folder з artifact не знайдено. Використовую repo data.
+if not defined DATA_FOUND (
+  echo [WARN] Data folder з artifact не знайдено. Беру repo data.
   if exist "%ROOT%\data" xcopy /e /i /y "%ROOT%\data\*" "%PAYLOAD%\data\obs-plugins\tihiy-multistream-pro\" >nul
 )
 
@@ -82,6 +85,6 @@ echo.
 echo ============================================================
 echo  ГОТОВО
 echo  Файл тут:
-echo  %ROOT%\installer\output\TiHiY_MultiStream_Pro_OBS_Plugin_Setup_v1.8.exe
+echo  %ROOT%\installer\output\TiHiY_MultiStream_Pro_OBS_Plugin_Setup_v2.1.exe
 echo ============================================================
 pause

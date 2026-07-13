@@ -1,8 +1,8 @@
-# TiHiY MultiStream Pro v2.0 CLEAN
+# TiHiY MultiStream Pro v2.1 CLEAN
 
 Нативний OBS-плагін для одночасного стріму на YouTube / Twitch / Custom RTMP.
 
-## Головне у v2.0
+## Головне у v2.1
 
 Це чиста версія після тестів:
 

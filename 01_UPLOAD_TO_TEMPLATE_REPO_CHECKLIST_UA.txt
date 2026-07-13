@@ -15,4 +15,4 @@
 
 
 ---
-TiHiY MultiStream Pro v2.0 CLEAN: RutonyChat and auto-open chats are removed.
+TiHiY MultiStream Pro v2.1 CLEAN: RutonyChat and auto-open chats are removed.

@@ -1,8 +1,8 @@
-TiHiY MultiStream Pro v2.0 CLEAN overlay
+TiHiY MultiStream Pro v2.1 CLEAN overlay
 
 Цей overlay завантажується поверх OBS Plugin Template repo.
 
-Що робить v2.0:
+Що робить v2.1:
 - повертає чисту компактну панель;
 - повністю прибирає RutonyChat;
 - прибирає Open chats / Chat URL / Open chat after start;

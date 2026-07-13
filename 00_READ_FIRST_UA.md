@@ -1,30 +1,30 @@
-# TiHiY MultiStream Pro v2.0 — CLEAN
+# TiHiY MultiStream Pro v2.1 CLEAN INSTALLER FIXED
 
-Це чиста стабільна версія без RutonyChat і без відкриття чатів при старті.
+Це чиста версія без Rutony і без автовідкриття чатів.
 
-## Що залишилось
-- Start All / Stop All.
-- YouTube 2K60.
-- Twitch 1080p60.
-- Custom RTMP.
-- Save settings.
-- Recommended settings.
-- Twitch safe 1080 fix.
-- Інсталятор / простий BAT для встановлення.
+Виправлено інсталятор:
+- більше НЕ шукає `build\Release\tihiy-multistream-pro.dll`;
+- спочатку бере DLL з розпакованого GitHub Actions artifact;
+- сам складає `installer\payload`;
+- після цього збирає нормальний Setup.exe.
 
-## Що прибрано
-- RutonyChat повністю.
-- Start Rutony / Stop Rutony.
-- Rutony Steam mode.
-- Open chats.
-- Chat URL.
-- Open chat after start.
+## Правильний порядок
 
-## Встановлення
-1. Завантаж весь вміст цієї папки у GitHub template repo.
-2. Commit changes.
-3. Actions → скачай Windows artifact.
-4. Закрий OBS.
-5. Заміни `tihiy-multistream-pro.dll` або зроби інсталятор через `tools/MAKE_INSTALLER_FROM_ACTIONS_ARTIFACT.bat`.
+1. Завантаж весь вміст цієї папки в GitHub repo через **Add file → Upload files**.
+2. Натисни **Commit changes**.
+3. Перейди в **Actions** і дочекайся збірки.
+4. Скачай Windows artifact.
+5. Розпакуй artifact у папку з проєктом або в будь-яку підпапку.
+6. Запусти:
 
-Ключі YouTube/Twitch збережуться, бо використовується та сама локальна QSettings-секція плагіна.
+```bat
+tools\MAKE_INSTALLER_FROM_ACTIONS_ARTIFACT.bat
+```
+
+Готовий файл буде тут:
+
+```text
+installer\output\TiHiY_MultiStream_Pro_OBS_Plugin_Setup_v2.1.exe
+```
+
+Не компілюй `.iss` вручну до того, як artifact розпакований і payload створений батником.
