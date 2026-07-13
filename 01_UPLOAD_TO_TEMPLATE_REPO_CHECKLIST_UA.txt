@@ -12,3 +12,7 @@
 [ ] Я завантажую вміст цього overlay-пакета поверх template repo.
 [ ] Я НЕ створюю вручну .github/workflows/main.yml.
 [ ] Після upload переходжу в Actions і запускаю workflow template.
+
+
+---
+TiHiY MultiStream Pro v2.0 CLEAN: RutonyChat and auto-open chats are removed.

@@ -82,6 +82,6 @@ echo.
 echo ============================================================
 echo  ГОТОВО
 echo  Файл тут:
-echo  %ROOT%\installer\output\TiHiY_MultiStream_Pro_OBS_Plugin_Setup_v1.9.exe
+echo  %ROOT%\installer\output\TiHiY_MultiStream_Pro_OBS_Plugin_Setup_v1.8.exe
 echo ============================================================
 pause

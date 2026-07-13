@@ -32,10 +32,5 @@ F:\OOBS\obs-studio\data\obs-plugins\tihiy-multistream-pro\locale\uk-UA.ini
 - Додано Save settings для локального збереження серверів/ключів/бітрейтів.
 
 
-## v1.6 AUTO OPEN CHATS
-
-- Додано автоматичне відкриття чатів після старту YouTube/Twitch/Custom.
-- У вікнах YouTube/Twitch/Custom зʼявились поля `Chat URL` і `Open chat after start`.
-- На головній компактній панелі додано кнопку `Open chats`.
-- Twitch за замовчуванням має popout-chat URL для `tihiy_ded`; YouTube за замовчуванням відкриває YouTube Studio, а точний popout chat URL можна вставити вручну.
-- Stream keys і Chat URLs зберігаються через `Save settings`.
+---
+TiHiY MultiStream Pro v2.0 CLEAN: RutonyChat and auto-open chats are removed.

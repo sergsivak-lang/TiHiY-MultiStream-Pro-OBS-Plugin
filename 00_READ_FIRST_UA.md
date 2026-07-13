@@ -1,38 +1,30 @@
-# TiHiY MultiStream Pro v1.9 — Rutony Steam Mode + Installer Ready
+# TiHiY MultiStream Pro v2.0 — CLEAN
 
-## Що додано у v1.9
+Це чиста стабільна версія без RutonyChat і без відкриття чатів при старті.
 
-- Rutony launch mode: **EXE direct / Steam protocol / Custom command**.
-- Якщо Rutony показує `Please launch the program from your Steam client`, використовуй **Steam protocol** або **Custom command**.
-- Збереження Steam App ID та custom command у налаштуваннях.
-- Інсталятор залишився в пакеті v1.9.
+## Що залишилось
+- Start All / Stop All.
+- YouTube 2K60.
+- Twitch 1080p60.
+- Custom RTMP.
+- Save settings.
+- Recommended settings.
+- Twitch safe 1080 fix.
+- Інсталятор / простий BAT для встановлення.
 
-## Як оновити
+## Що прибрано
+- RutonyChat повністю.
+- Start Rutony / Stop Rutony.
+- Rutony Steam mode.
+- Open chats.
+- Chat URL.
+- Open chat after start.
 
-1. Розпакуй архів.
-2. GitHub → Add file → Upload files.
-3. Завантаж **весь вміст** цієї папки з заміною.
-4. Commit changes.
-5. Actions → скачай Windows artifact.
-6. Закрий OBS.
-7. Замінити `tihiy-multistream-pro.dll`.
-8. Запусти OBS.
+## Встановлення
+1. Завантаж весь вміст цієї папки у GitHub template repo.
+2. Commit changes.
+3. Actions → скачай Windows artifact.
+4. Закрий OBS.
+5. Заміни `tihiy-multistream-pro.dll` або зроби інсталятор через `tools/MAKE_INSTALLER_FROM_ACTIONS_ARTIFACT.bat`.
 
-## Як запускати Rutony через Steam
-
-1. В OBS відкрий панель **TiHiY MultiStream Pro**.
-2. Натисни **Rutony Chat**.
-3. У `Launch mode` вибери **Steam protocol**.
-4. У `Steam App ID` встав ID RutonyChat зі Steam.
-5. Увімкни `Start RutonyChat after stream start`.
-6. Натисни **Save settings**.
-
-Якщо не знаєш App ID — створи ярлик RutonyChat у Steam на робочий стіл і подивись у властивостях посилання `steam://rungameid/XXXXXX`. Це число і є Steam App ID.
-
-## Custom command приклад
-
-```text
-"C:\Program Files (x86)\Steam\steam.exe" -applaunch 123456
-```
-
-Заміни `123456` на реальний Steam App ID RutonyChat.
+Ключі YouTube/Twitch збережуться, бо використовується та сама локальна QSettings-секція плагіна.

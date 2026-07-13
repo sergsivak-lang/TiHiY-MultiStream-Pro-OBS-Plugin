@@ -1,54 +1,41 @@
-# TiHiY MultiStream Pro v1.9
+# TiHiY MultiStream Pro v2.0 CLEAN
 
-Нативний OBS-плагін для одночасного стріму на YouTube 2K60 і Twitch 1080p60.
+Нативний OBS-плагін для одночасного стріму на YouTube / Twitch / Custom RTMP.
 
-## Головне
+## Головне у v2.0
 
-- компактна масштабована панель;
-- Start All / Stop All;
-- окремі вікна YouTube, Twitch, Custom RTMP;
-- відкриття чатів після старту;
-- Twitch safe 1080 fix;
-- автозапуск RutonyChat;
-- **Rutony launch mode: EXE / Steam / Custom command**;
-- installer-ready пакет.
+Це чиста версія після тестів:
 
-## RutonyChat
+- RutonyChat прибрано повністю.
+- Автовідкриття чатів при старті прибрано.
+- Кнопки чатів прибрано.
+- Панель знову компактна.
+- Залишені тільки потрібні функції мультістріму.
 
-Якщо RutonyChat показує:
+## Панель
 
-```text
-Please launch the program from your Steam client.
-```
+- Start All
+- Stop All
+- YouTube
+- Twitch
+- Custom
+- Save settings
+- Recommended settings
+- Twitch safe 1080 fix
 
-тоді в налаштуваннях Rutony вибери один із режимів:
+## Рекомендовані налаштування
 
-```text
-Steam protocol
-```
-
-або
-
-```text
-Custom command
-```
-
-Приклад custom command:
-
-```text
-"C:\Program Files (x86)\Steam\steam.exe" -applaunch 123456
-```
+- YouTube: 2560×1440, 60 FPS, 24000 Kbps.
+- Twitch: 1920×1080, 60 FPS, 6000 Kbps.
+- Twitch safe 1080 fix: ON.
 
 ## Інсталятор
 
-Після Actions artifact можна створити Setup.exe:
+Після GitHub Actions можна встановити вручну або зібрати Setup.exe:
 
-```text
-tools\MAKE_INSTALLER_FROM_ACTIONS_ARTIFACT.bat
-```
+- `tools/INSTALL_PLUGIN_SIMPLE.bat`
+- `tools/MAKE_INSTALLER_FROM_ACTIONS_ARTIFACT.bat`
 
-Готовий файл буде тут:
+За замовчуванням інсталятор орієнтується на OBS у:
 
-```text
-installer\output\TiHiY_MultiStream_Pro_OBS_Plugin_Setup_v1.9.exe
-```
+`F:\OOBS\obs-studio`

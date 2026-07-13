@@ -14,3 +14,7 @@
 
 Висновок:
 старий repo не ремонтуємо нескінченно. Створюємо новий через OBS Plugin Template і накладаємо цей overlay.
+
+
+---
+TiHiY MultiStream Pro v2.0 CLEAN: RutonyChat and auto-open chats are removed.
